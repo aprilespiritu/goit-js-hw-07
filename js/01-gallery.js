@@ -6,7 +6,7 @@ let gallery = document.querySelector(".gallery");
 galleryItems.forEach((item) => {
 	let li = `
     <li class="gallery__item">
-        <a class="gallery__link" href="large-image.jpg">
+        <a class="gallery__link" href="javascript:void(0)">
         <img
             class="gallery__image"
             src="${item.preview}"
@@ -18,3 +18,22 @@ galleryItems.forEach((item) => {
     `;
 	gallery.innerHTML += li;
 });
+
+//Original Image on Click
+
+gallery.addEventListener("click", (e) => {
+    if (e.target.tagName === "IMG") {
+        let bigImage = e.target.getAttribute("data-source");
+        let instance = basicLightbox.create(`<img src="${bigImage}" width="800" height="600"/>`);
+        instance.show();
+
+        window.addEventListener('keyup', (e) => {
+            if (e.code === "Escape") {
+                instance.close();
+            }
+        });
+    }
+});
+
+
+
